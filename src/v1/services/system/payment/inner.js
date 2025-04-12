@@ -56,6 +56,11 @@ module.exports.createPaymentSession = async (currency = "USD", amount) => {
           partner_id: 123989,
         },
         processing_channel_id: "pc_loilg3lb45ye5ehvxybkway3ku",
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + process.env.CHECKOUT_SECRET_KEY,
+        },
       }
     );
 
