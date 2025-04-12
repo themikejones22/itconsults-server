@@ -34,6 +34,7 @@ module.exports.createInvoice = async (req, res, next) => {
       user.name
     );
   } catch (err) {
+    console.log("err", err);
     next(err);
   }
 };
