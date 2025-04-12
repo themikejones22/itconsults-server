@@ -44,6 +44,7 @@ module.exports.createPaymentSession = async (currency = "USD", amount) => {
 
     return response.data;
   } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
     throw error;
   }
 };
