@@ -1,11 +1,8 @@
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
-  // apiVersion: "2022-08-01",
-  apiVersion: "2019-10-17",
-});
+const axios = require("axios");
 
 module.exports.getStripePublishableKey = () => {
   try {
-    const publishableKey = process.env.STRIPE_PUBLISHABLE_KEY;
+    const publishableKey = process.env.CHECKOUT_PUBLISHABLE_KEY;
     if (!publishableKey) {
       throw new Error("No stripe publishable key on the server");
     }
@@ -16,16 +13,37 @@ module.exports.getStripePublishableKey = () => {
   }
 };
 
-module.exports.createPaymentIntent = async (currency = "USD", amount) => {
+module.exports.createPaymentSession = async (currency = "USD", amount) => {
   try {
-    const paymentIntent = await stripe.paymentIntents.create({
-      currency,
-      amount: amount * 100,
-      automatic_payment_methods: { enabled: true },
-    });
+    const response = await axios.post(
+      "https://api.sandbox.checkout.com/payment-sessions",
+      {
+        amount: 1000,
+        currency: "GBP",
+        reference: "ORD-123A",
+        display_name: "Online shop",
+        billing: {
+          address: {
+            country: "GB",
+          },
+        },
+        customer: {
+          name: "Jia Tsang",
+          email: "jia.tsang@example.com",
+        },
+        success_url: "https://example.com/payments/success",
+        failure_url: "https://example.com/payments/failure",
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + process.env.CHECKOUT_SECRET_KEY, // replace with your real test secret key
+        },
+      }
+    );
 
-    return paymentIntent.client_secret;
-  } catch (err) {
-    throw err;
+    return response.data;
+  } catch (error) {
+    throw error;
   }
 };

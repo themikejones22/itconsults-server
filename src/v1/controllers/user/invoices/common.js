@@ -14,7 +14,7 @@ module.exports.createInvoice = async (req, res, next) => {
 
     const invoice = await invoicesService.createInvoice(user, amount, title);
 
-    const clientSecret = await paymentService.createPaymentIntent(
+    const paymentSession = await paymentService.createPaymentSession(
       invoice.currency,
       invoice.amount
     );
@@ -22,7 +22,7 @@ module.exports.createInvoice = async (req, res, next) => {
     // Create the response object
     const response = {
       invoice: _.pick(invoice, clientSchema),
-      clientSecret,
+      paymentSession,
     };
 
     // Send the response back to the client
