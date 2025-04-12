@@ -15,7 +15,16 @@ module.exports.getStripePublishableKey = () => {
 
 module.exports.createPaymentSession = async (currency = "USD", amount) => {
   try {
-    const response = await axios.post(
+    const pcResponse = await axios.get(
+      "https://api.sandbox.checkout.com/channels",
+      {
+        headers: { Authorization: "Bearer " + process.env.CHECKOUT_SECRET_KEY },
+      }
+    );
+
+    console.log("pcResponse", pcResponse.data);
+
+    const sessionResponse = await axios.post(
       "https://api.sandbox.checkout.com/payment-sessions",
       {
         amount: 1000,
@@ -42,7 +51,7 @@ module.exports.createPaymentSession = async (currency = "USD", amount) => {
       }
     );
 
-    return response.data;
+    return sessionResponse.data;
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
     throw error;
