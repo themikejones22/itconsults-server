@@ -31,6 +31,7 @@ module.exports.createPaymentLink = async (
         email: customer.email,
         name: customer.name,
       },
+      processing_channel_id: "pc_loilg3lb45ye5ehvxybkway3ku",
       success_url: "https://your-website.com/success",
       failure_url: "https://your-website.com/failure",
     };
