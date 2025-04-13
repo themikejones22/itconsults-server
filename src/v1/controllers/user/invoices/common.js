@@ -14,25 +14,27 @@ module.exports.createInvoice = async (req, res, next) => {
 
     const invoice = await invoicesService.createInvoice(user, amount, title);
 
-    const paymentSession = await paymentService.createPaymentSession(
-      invoice.currency,
-      invoice.amount
+    const paymentLink = await paymentService.createPaymentLink(
+      user,
+      invoice._id,
+      title,
+      amount
     );
 
     // Create the response object
     const response = {
       invoice: _.pick(invoice, clientSchema),
-      paymentSession,
+      paymentLink,
     };
 
     // Send the response back to the client
     res.status(httpStatus.CREATED).json(response);
 
-    await emailService.sendInvoiceForCustomer(
-      user.display.language,
-      user.email,
-      user.name
-    );
+    // await emailService.sendInvoiceForCustomer(
+    //   user.display.language,
+    //   user.email,
+    //   user.name
+    // );
   } catch (err) {
     console.error("Error:", err.response?.data || err.message);
     next(err);

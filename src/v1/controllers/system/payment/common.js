@@ -1,7 +1,7 @@
 const { paymentService } = require("../../../services");
 const httpStatus = require("http-status");
 
-module.exports.getStripePublishableKey = (req, res, next) => {
+module.exports.getCheckoutPublicKey = (req, res, next) => {
   try {
     const publishableKey = paymentService.getStripePublishableKey();
 

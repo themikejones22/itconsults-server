@@ -13,58 +13,36 @@ module.exports.getStripePublishableKey = () => {
   }
 };
 
-module.exports.createPaymentSession = async (currency = "USD", amount) => {
+module.exports.createPaymentLink = async (
+  customer,
+  reference,
+  description,
+  amount
+) => {
   try {
-    const sessionResponse = await axios.post(
-      "https://api.sandbox.checkout.com/payment-sessions",
-      {
-        amount: 6540,
-        currency: "GBP",
-        reference: "get started guide",
-        shipping: {
-          address: {
-            address_line1: "Checkout.com",
-            address_line2: "90 Tottenham Court Road",
-            city: "London",
-            state: "London",
-            zip: "W1T 4TJ",
-            country: "GB",
-          },
-        },
-        billing: {
-          address: {
-            address_line1: "Checkout.com",
-            address_line2: "90 Tottenham Court Road",
-            city: "London",
-            state: "London",
-            zip: "W1T 4TJ",
-            country: "GB",
-          },
-        },
-        "3ds": {
-          enabled: false,
-          attempt_n3d: false,
-          challenge_indicator: "no_preference",
-          exemption: "low_value",
-          allow_upgrade: true,
-        },
-        enabled_payment_methods: ["card"],
-        success_url: "https://example.com/payments/success",
-        failure_url: "https://example.com/payments/fail",
-        metadata: {
-          coupon_code: "20OFF",
-          partner_id: 123989,
-        },
-        processing_channel_id: "pc_loilg3lb45ye5ehvxybkway3ku",
-      },
-      {
-        headers: {
-          Authorization: "Bearer " + process.env.CHECKOUT_SECRET_KEY,
-        },
-      }
-    );
+    const url = "https://api.sandbox.checkout.com/payment-links";
 
-    return sessionResponse.data;
+    const payload = {
+      amount,
+      currency: "USD",
+      reference,
+      description,
+      customer: {
+        email: customer.email,
+        name: customer.name,
+      },
+      success_url: "https://your-website.com/success",
+      failure_url: "https://your-website.com/failure",
+    };
+
+    const headers = {
+      Authorization: "Bearer " + process.env.CHECKOUT_SECRET_KEY,
+      "Content-Type": "application/json",
+    };
+
+    const response = await axios.post(url, payload, { headers });
+    paymentLink = response.data._links.redirect.href;
+    return paymentLink;
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
     throw error;
