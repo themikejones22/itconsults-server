@@ -3,7 +3,15 @@ const {
   Types: { ObjectId },
 } = require("mongoose");
 
-module.exports.client = ["_id", "userId", "amount", "currency", "title"];
+module.exports.client = [
+  "_id",
+  "userId",
+  "amount",
+  "currency",
+  "service",
+  "paid",
+  "paidAt",
+];
 
 const schema = new Schema(
   {
