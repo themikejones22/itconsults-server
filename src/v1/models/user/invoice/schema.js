@@ -11,6 +11,7 @@ module.exports.client = [
   "service",
   "paid",
   "paidAt",
+  "createdAt",
 ];
 
 const schema = new Schema(
