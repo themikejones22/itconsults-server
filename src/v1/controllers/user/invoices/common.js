@@ -10,9 +10,15 @@ const _ = require("lodash");
 module.exports.createInvoice = async (req, res, next) => {
   try {
     const user = req.user;
-    const { amount, title } = req.body;
+    const { amount, title, type, url } = req.body;
 
-    const invoice = await invoicesService.createInvoice(user, amount, title);
+    const invoice = await invoicesService.createInvoice(
+      user,
+      amount,
+      title,
+      type,
+      url
+    );
 
     const paymentLink = await paymentService.createPaymentLink(
       user,

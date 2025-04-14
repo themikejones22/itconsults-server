@@ -1,27 +1,28 @@
 const { Invoice } = require("../../../models/user/invoice");
-// const { ApiError } = require("../../../middleware/apiError");
-// const httpStatus = require("http-status");
-// const errors = require("../../../config/errors");
 
-module.exports.createInvoice = async (user, amount, title) => {
+module.exports.createInvoice = async (
+  user,
+  amount,
+  serviceTitle,
+  serviceType,
+  serviceUrl
+) => {
   try {
-    // if (!user.isPaymentVerified()) {
-    //   const statusCode = httpStatus.FORBIDDEN;
-    //   const message = errors.user.paymentUnverified;
-    //   throw new ApiError(statusCode, message);
-    // }
-
     const invoice = new Invoice({
       userId: user._id,
       currency: "USD",
       amount,
-      title,
+      title: serviceTitle,
+      paid: false,
+      paidAt: null,
+      service: {
+        title: serviceTitle,
+        type: serviceType,
+        url: serviceUrl,
+      },
     });
 
     await invoice.save();
-
-    // user.unverifyPayment();
-    // await user.save();
 
     return invoice;
   } catch (err) {

@@ -12,11 +12,6 @@ const schema = new Schema(
       ref: "User",
       required: true,
     },
-    title: {
-      type: String,
-      required: true,
-      trim: true,
-    },
     amount: {
       type: Number,
       required: true,
@@ -25,6 +20,31 @@ const schema = new Schema(
       type: String,
       required: true,
       trim: true,
+    },
+    service: {
+      title: {
+        type: String,
+        trim: true,
+        required: true,
+      },
+      type: {
+        type: String,
+        trim: true,
+        required: true,
+      },
+      url: {
+        type: String,
+        trim: true,
+        required: true,
+      },
+    },
+    paid: {
+      type: Boolean,
+      default: false,
+    },
+    paidAt: {
+      type: Date,
+      default: null,
     },
   },
   {
