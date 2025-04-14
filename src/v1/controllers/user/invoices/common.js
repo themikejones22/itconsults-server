@@ -59,7 +59,7 @@ module.exports.getMyInvoices = async (req, res, next) => {
     };
 
     // Send the response back to the client
-    res.status(httpStatus.CREATED).json(response);
+    res.status(httpStatus.OK).json(response);
   } catch (err) {
     next(err);
   }
