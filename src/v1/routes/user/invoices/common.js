@@ -13,4 +13,6 @@ module.exports = (router) => {
     auth("readOwn", "invoice"),
     invoicesController.getMyInvoices
   );
+
+  router.post("/checkout-webhook", invoicesController.checkoutWebhook);
 };

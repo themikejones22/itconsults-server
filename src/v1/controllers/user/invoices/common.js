@@ -64,3 +64,18 @@ module.exports.getMyInvoices = async (req, res, next) => {
     next(err);
   }
 };
+
+module.exports.checkoutWebhook = (req, res) => {
+  const event = req.body;
+
+  console.log("Received webhook:", event);
+
+  // ✅ Verify event type
+  if (event.type === "payment_approved") {
+    // Update database, mark order as paid, etc.
+    console.log("Payment succeeded.");
+  }
+
+  // Respond with 2xx to acknowledge receipt
+  res.status(200).send("Webhook received");
+};
