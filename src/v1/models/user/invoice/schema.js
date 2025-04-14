@@ -44,7 +44,7 @@ const schema = new Schema(
       url: {
         type: String,
         trim: true,
-        required: true,
+        default: "",
       },
     },
     paid: {
