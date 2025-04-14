@@ -37,9 +37,7 @@ module.exports.createPaymentLink = async (
         },
       },
       processing_channel_id: "pc_loilg3lb45ye5ehvxybkway3ku",
-      success_url: "https://your-website.com/success",
-      failure_url: "https://your-website.com/failure",
-      terms_conditions_url: "https://itconsults.site/privacy-policy",
+      return_url: "https://itconsults.site/",
     };
 
     const headers = {
