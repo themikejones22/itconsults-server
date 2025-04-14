@@ -35,7 +35,8 @@ module.exports = (app) => {
   app.use(express.urlencoded({ extended: true }));
   app.use(express.static("uploads"));
   app.use(helmet());
-  app.use(cors({ origin: "https://itconsults.site" }));
+  // app.use(cors({ origin: "https://itconsults.site" }));
+  app.use(cors({ origin: "*" }));
   app.use(xss());
   app.use(mongoSanitize());
 };
