@@ -1535,7 +1535,7 @@ module.exports.types = {
                         <td align="left" style="font-weight: bold; border: 1px solid #e0e0e0">
                           Service Price
                         </td>
-                        <td style="border: 1px solid #e0e0e0">$${Number(
+                        <td style="border: 1px solid #e0e0e0">£${Number(
                           servicePrice
                         ).toFixed(2)}</td>
                       </tr>
