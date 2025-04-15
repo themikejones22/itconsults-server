@@ -46,7 +46,7 @@ module.exports.markInvoiceAsPaid = async (invoiceId) => {
     invoice.paidAt = new Date();
     await invoice.save();
 
-    return true;
+    return invoice;
   } catch (err) {
     throw err;
   }

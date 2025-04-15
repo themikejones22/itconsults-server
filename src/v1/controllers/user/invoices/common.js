@@ -2,6 +2,7 @@ const {
   invoicesService,
   paymentService,
   emailService,
+  usersService,
 } = require("../../../services");
 const httpStatus = require("http-status");
 const { clientSchema } = require("../../../models/user/invoice");
@@ -65,7 +66,9 @@ module.exports.checkoutWebhook = async (req, res) => {
   if (event.type === "payment_approved") {
     const invoiceId = event.data.reference;
 
-    await invoicesService.markInvoiceAsPaid(invoiceId);
+    const invoice = await invoicesService.markInvoiceAsPaid(invoiceId);
+
+    const user = usersService.findUserById(invoice.userId);
 
     await emailService.sendInvoiceForCustomer(
       user.display.language,

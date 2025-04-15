@@ -7,6 +7,15 @@ const errors = require("../../../config/errors");
 const innerServices = require("./inner");
 const adminServices = require("./admin");
 
+module.exports.findUserById = async (userId) => {
+  try {
+    const user = await User.findById(userId);
+    return user;
+  } catch (err) {
+    return null;
+  }
+};
+
 module.exports.authenticateUser = async (user, lang, deviceToken) => {
   try {
     // [OPTIONAL]: Update user's favorite language
