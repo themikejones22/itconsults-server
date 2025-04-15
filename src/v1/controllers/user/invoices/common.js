@@ -68,13 +68,13 @@ module.exports.checkoutWebhook = async (req, res) => {
 
     const invoice = await invoicesService.markInvoiceAsPaid(invoiceId);
 
-    const user = usersService.findUserById(invoice.userId);
+    // const user = usersService.findUserById(invoice.userId);
 
-    await emailService.sendInvoiceForCustomer(
-      user.display.language,
-      user.email,
-      user.name
-    );
+    // await emailService.sendInvoiceForCustomer(
+    //   user.display.language,
+    //   user.email,
+    //   user.name
+    // );
   }
 
   // Respond with 2xx to acknowledge receipt
