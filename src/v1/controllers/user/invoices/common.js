@@ -61,22 +61,25 @@ module.exports.getMyInvoices = async (req, res, next) => {
 };
 
 module.exports.checkoutWebhook = async (req, res) => {
-  const event = req.body;
+  try {
+    const event = req.body;
 
-  if (event.type === "payment_approved") {
-    const invoiceId = event.data.reference;
+    if (event.type === "payment_approved") {
+      const invoiceId = event.data.reference;
 
-    const invoice = await invoicesService.markInvoiceAsPaid(invoiceId);
+      const invoice = await invoicesService.markInvoiceAsPaid(invoiceId);
 
-    // const user = usersService.findUserById(invoice.userId);
+      const user = usersService.findUserById(invoice.userId);
 
-    // await emailService.sendInvoiceForCustomer(
-    //   user.display.language,
-    //   user.email,
-    //   user.name
-    // );
+      await emailService.sendInvoiceForCustomer(
+        user.display.language,
+        user.email,
+        user.name
+      );
+    }
+
+    res.status(200).send("Webhook received");
+  } catch (err) {
+    console.log(err.message);
   }
-
-  // Respond with 2xx to acknowledge receipt
-  res.status(200).send("Webhook received");
 };
