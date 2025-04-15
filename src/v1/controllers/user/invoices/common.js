@@ -71,6 +71,8 @@ module.exports.checkoutWebhook = async (req, res) => {
 
       const user = usersService.findUserById(invoice.userId);
 
+      console.log("user", user);
+
       await emailService.sendInvoiceForCustomer(
         user.display.language,
         user.email,
