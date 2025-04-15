@@ -24,7 +24,7 @@ module.exports.createPaymentLink = async (
 
     const payload = {
       amount: amount * 100,
-      currency: "USD",
+      currency: "GBP",
       reference,
       description,
       customer: {
@@ -33,7 +33,7 @@ module.exports.createPaymentLink = async (
       },
       billing: {
         address: {
-          country: "US",
+          country: "GBP",
         },
       },
       processing_channel_id: "pc_loilg3lb45ye5ehvxybkway3ku",
