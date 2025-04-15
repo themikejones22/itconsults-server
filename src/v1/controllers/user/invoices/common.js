@@ -35,12 +35,6 @@ module.exports.createInvoice = async (req, res, next) => {
 
     // Send the response back to the client
     res.status(httpStatus.CREATED).json(response);
-
-    // await emailService.sendInvoiceForCustomer(
-    //   user.display.language,
-    //   user.email,
-    //   user.name
-    // );
   } catch (err) {
     console.error("Error:", err.response?.data || err.message);
     next(err);
@@ -65,15 +59,19 @@ module.exports.getMyInvoices = async (req, res, next) => {
   }
 };
 
-module.exports.checkoutWebhook = (req, res) => {
+module.exports.checkoutWebhook = async (req, res) => {
   const event = req.body;
 
-  console.log("Received webhook:", event);
-
-  // ✅ Verify event type
   if (event.type === "payment_approved") {
-    // Update database, mark order as paid, etc.
-    console.log("Payment succeeded.");
+    const invoiceId = event.data.reference;
+
+    await invoicesService.markInvoiceAsPaid(invoiceId);
+
+    await emailService.sendInvoiceForCustomer(
+      user.display.language,
+      user.email,
+      user.name
+    );
   }
 
   // Respond with 2xx to acknowledge receipt

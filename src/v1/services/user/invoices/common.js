@@ -37,3 +37,17 @@ module.exports.getMyInvoices = async (user) => {
     throw err;
   }
 };
+
+module.exports.markInvoiceAsPaid = async (invoiceId) => {
+  try {
+    const invoice = await Invoice.findById(invoiceId);
+
+    invoice.paid = true;
+    invoice.paidAt = new Date();
+    await invoice.save();
+
+    return true;
+  } catch (err) {
+    throw err;
+  }
+};
