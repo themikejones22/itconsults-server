@@ -33,7 +33,7 @@ module.exports.createPaymentLink = async (
       },
       billing: {
         address: {
-          country: "GBP",
+          country: "GB",
         },
       },
       processing_channel_id: "pc_loilg3lb45ye5ehvxybkway3ku",
