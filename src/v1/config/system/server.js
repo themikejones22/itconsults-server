@@ -4,7 +4,7 @@ module.exports.APP_NAME_AR = "IT Consults";
 
 module.exports.APP_EMAIL = "itconsults.co@gmail.com";
 
-module.exports.SUPPORT_EMAIL = "itconsults.co@gmail.com";
+module.exports.SUPPORT_EMAIL = "team@itconsults.site";
 
 module.exports.PORT = process.env["PORT"] || 4000;
 
