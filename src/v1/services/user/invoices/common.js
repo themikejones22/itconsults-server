@@ -11,7 +11,7 @@ module.exports.createInvoice = async (
     const invoice = new Invoice({
       userId: user._id,
       currency: "USD",
-      amount: amount * 100,
+      amount,
       title: serviceTitle,
       paid: false,
       paidAt: null,

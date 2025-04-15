@@ -23,7 +23,7 @@ module.exports.createPaymentLink = async (
     const url = "https://api.sandbox.checkout.com/payment-links";
 
     const payload = {
-      amount,
+      amount: amount * 100,
       currency: "USD",
       reference,
       description,
@@ -37,7 +37,7 @@ module.exports.createPaymentLink = async (
         },
       },
       processing_channel_id: "pc_loilg3lb45ye5ehvxybkway3ku",
-      return_url: "https://itconsults.site/",
+      return_url: "https://itconsults.site/invoices",
     };
 
     const headers = {
