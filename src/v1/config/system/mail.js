@@ -1463,7 +1463,8 @@ module.exports.types = {
           <html lang="en" style="margin: 0; padding: 0">
             <head>
               <meta charset="UTF-8" />
-              <title>Payment Confirmation - IT Consults</title>
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <title>Payment Confirmation - ${APP_NAME_EN}</title>
             </head>
             <body
               style="
@@ -1511,30 +1512,57 @@ module.exports.types = {
                       "
                     >
                       <tr style="background-color: #f0f0f0">
-                        <th align="left" style="border: 1px solid #e0e0e0">
+                        <td align="left" style="font-weight: bold; border: 1px solid #e0e0e0">
                           Service Name
-                        </th>
+                        </td>
                         <td style="border: 1px solid #e0e0e0">${serviceName}</td>
                       </tr>
                       <tr>
-                        <th align="left" style="border: 1px solid #e0e0e0">
+                        <td align="left" style="font-weight: bold; border: 1px solid #e0e0e0">
                           Service Type
-                        </th>
+                        </td>
                         <td style="border: 1px solid #e0e0e0">${serviceType}</td>
                       </tr>
                       <tr style="background-color: #f9f9f9">
-                        <th align="left" style="border: 1px solid #e0e0e0">App ID</th>
-                        <td style="border: 1px solid #e0e0e0">${serviceUrl}</td>
+                        <td align="left" style="font-weight: bold; border: 1px solid #e0e0e0">
+                          App ID
+                        </td>
+                        <td style="border: 1px solid #e0e0e0">${
+                          serviceUrl || "Not provided"
+                        }</td>
                       </tr>
                       <tr>
-                        <th align="left" style="border: 1px solid #e0e0e0">
+                        <td align="left" style="font-weight: bold; border: 1px solid #e0e0e0">
                           Service Price
-                        </th>
-                        <td style="border: 1px solid #e0e0e0">${servicePrice}</td>
+                        </td>
+                        <td style="border: 1px solid #e0e0e0">$${Number(
+                          servicePrice
+                        ).toFixed(2)}</td>
                       </tr>
                     </table>
 
                     <p style="margin-top: 25px">
+                      Our team will contact you within a few hours to schedule the meeting
+                      and discuss the next steps.
+                    </p>
+
+                    <p style="text-align: center; margin: 30px 0">
+                      <a
+                        href="https://itconsults.site/invoices"
+                        style="
+                          background-color: #ff6341;
+                          color: #fff;
+                          text-decoration: none;
+                          padding: 12px 24px;
+                          border-radius: 5px;
+                          display: inline-block;
+                          font-weight: bold;
+                        "
+                        >View your invoices</a
+                      >
+                    </p>
+
+                    <p style="margin-top: 20px">
                       If you have any questions, feel free to reach out to us at
                       <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>.
                     </p>
@@ -1552,7 +1580,6 @@ module.exports.types = {
               </table>
             </body>
           </html>
-
         `,
 
         ar: (name) => `
