@@ -15,15 +15,15 @@ const verify = (req, res, resolve, reject, rights) => async (err, user) => {
   // Put the user in the request object
   req.user = user;
 
-  // Get the 3rd right => Require no user verification
-  const requireNoVerified = rights[2];
+  // // Get the 3rd right => Require no user verification
+  // const requireNoVerified = rights[2];
 
-  // Check if user has verified their email
-  if (!requireNoVerified && !user.isEmailVerified()) {
-    const statusCode = httpStatus.FORBIDDEN;
-    const message = errors.auth.emailNotVerified;
-    return reject(new ApiError(statusCode, message));
-  }
+  // // Check if user has verified their email
+  // if (!requireNoVerified && !user.isEmailVerified()) {
+  //   const statusCode = httpStatus.FORBIDDEN;
+  //   const message = errors.auth.emailNotVerified;
+  //   return reject(new ApiError(statusCode, message));
+  // }
 
   // Check if user is authorized to access this API
   if (rights.length) {
