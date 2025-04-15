@@ -74,7 +74,11 @@ module.exports.checkoutWebhook = async (req, res) => {
       await emailService.sendInvoiceForCustomer(
         user.display.language,
         user.email,
-        user.name
+        user.name,
+        invoice.service.title,
+        invoice.service.type,
+        invoice.service.url,
+        invoice.amount
       );
     }
 

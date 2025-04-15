@@ -1,4 +1,9 @@
-const { APP_NAME_EN, APP_NAME_AR, SUPPORT_EMAIL } = require("./server");
+const {
+  APP_NAME_EN,
+  APP_NAME_AR,
+  SUPPORT_EMAIL,
+  APP_EMAIL,
+} = require("./server");
 
 module.exports.auth = {
   user: "itconsults.co@gmail.com",
@@ -1448,44 +1453,106 @@ module.exports.types = {
 
   customerInvoice: {
     subject: {
-      en: "Invoice and Consultation Confirmation",
-      ar: "تأكيد الفاتورة والاستشارة",
+      en: `Your Payment was Successful - ${APP_NAME_EN}`,
+      ar: `تم الدفع بنجاح - ${APP_NAME_AR}`,
     },
     emailBody: {
       title: {
-        en: (name) => `
-          <div style="margin: 0; padding: 0; font-size: 15px; font-weight: 400; text-align: left; color: #000;">
-            <h3>Invoice and Consultation Confirmation</h3>
-            
-            <p>Dear ${name},</p>
-            
-            <p>I hope this email finds you well. Thank you for choosing our IT Consulting services. We greatly appreciate your trust in our expertise and are committed to delivering exceptional value to your business.</p>
-            
-            <p>We are writing to confirm the receipt of your payment and provide you with the necessary information regarding your invoice. Attached to this email, you will find the invoice for the services you have requested. Please review it at your convenience.</p>
-            
-            <p>We understand that prompt access to the consultation is crucial for your business operations. Rest assured, we are diligently working on preparing a comprehensive and tailored consultation specifically for your company. We are committed to delivering this consultation to you as a PDF file, sent to your registered email address within the next business day.</p>
-            
-            <p>Our team of experienced consultants has already begun working on your consultation, taking into account the unique needs and challenges faced by your organization. We aim to provide you with actionable insights, innovative solutions, and strategic guidance that will help drive your business forward.</p>
-            
-            <p>If you have any questions or require further information regarding your invoice or the upcoming consultation, please do not hesitate to contact our dedicated customer support team at <a href="mailto:${SUPPORT_EMAIL}">our support email</a>. We are here to assist you and ensure that you have a smooth and successful experience with our services.</p>
-            
-            <p>Once again, we sincerely appreciate your business and the opportunity to work with you. We look forward to delivering your consultation and contributing to your business's growth and success.</p>
-            
-            <p>Thank you for choosing ${APP_NAME_EN}. We value your partnership and are committed to exceeding your expectations.</p>
-            
-            <br />
-            <br />
-            
-            <span style="font-size: 15px; font-weight: 400; text-align: left; color: #000;">
-              Best regards,
-            </span>
-            
-            <br />
-            
-            <span style="font-size: 15px; font-weight: 700; text-align: left; color: #000;">
-              ${APP_NAME_EN} Team
-            </span>
-          </div>
+        en: (fullName, serviceName, serviceType, serviceUrl, servicePrice) => `
+          <!DOCTYPE html>
+          <html lang="en" style="margin: 0; padding: 0">
+            <head>
+              <meta charset="UTF-8" />
+              <title>Payment Confirmation - IT Consults</title>
+            </head>
+            <body
+              style="
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                padding: 20px;
+                color: #333;
+              "
+            >
+              <table
+                align="center"
+                width="600"
+                cellpadding="0"
+                cellspacing="0"
+                style="
+                  background-color: #fff;
+                  padding: 30px;
+                  border-radius: 8px;
+                  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+                "
+              >
+                <tr>
+                  <td align="center" style="padding-bottom: 20px">
+                    <h2 style="margin: 0; color: #ff6341">IT Consults</h2>
+                    <p style="margin: 5px 0 0; font-size: 16px">Payment Confirmation</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>Dear <strong>${fullName}</strong>,</p>
+                    <p>
+                      Thank you for choosing our IT Consulting services. We’re pleased to
+                      inform you that your payment was received successfully. Please find
+                      your service details below:
+                    </p>
+
+                    <table
+                      width="100%"
+                      cellpadding="8"
+                      cellspacing="0"
+                      style="
+                        margin-top: 20px;
+                        border: 1px solid #e0e0e0;
+                        border-collapse: collapse;
+                      "
+                    >
+                      <tr style="background-color: #f0f0f0">
+                        <th align="left" style="border: 1px solid #e0e0e0">
+                          Service Name
+                        </th>
+                        <td style="border: 1px solid #e0e0e0">${serviceName}</td>
+                      </tr>
+                      <tr>
+                        <th align="left" style="border: 1px solid #e0e0e0">
+                          Service Type
+                        </th>
+                        <td style="border: 1px solid #e0e0e0">${serviceType}</td>
+                      </tr>
+                      <tr style="background-color: #f9f9f9">
+                        <th align="left" style="border: 1px solid #e0e0e0">App ID</th>
+                        <td style="border: 1px solid #e0e0e0">${serviceUrl}</td>
+                      </tr>
+                      <tr>
+                        <th align="left" style="border: 1px solid #e0e0e0">
+                          Service Price
+                        </th>
+                        <td style="border: 1px solid #e0e0e0">${servicePrice}</td>
+                      </tr>
+                    </table>
+
+                    <p style="margin-top: 25px">
+                      If you have any questions, feel free to reach out to us at
+                      <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>.
+                    </p>
+                    <p>Best regards,<br /><strong>${APP_NAME_EN} Team</strong></p>
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    align="center"
+                    style="font-size: 12px; color: #999; padding-top: 30px"
+                  >
+                    &copy; ${new Date().getFullYear()} ${APP_NAME_EN}. All rights reserved.
+                  </td>
+                </tr>
+              </table>
+            </body>
+          </html>
+
         `,
 
         ar: (name) => `

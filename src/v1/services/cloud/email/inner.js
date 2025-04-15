@@ -252,7 +252,15 @@ module.exports.sendWelcomeBackEmail = async (lang, email, name) => {
   }
 };
 
-module.exports.sendInvoiceForCustomer = async (lang, email, name) => {
+module.exports.sendInvoiceForCustomer = async (
+  lang,
+  email,
+  name,
+  serviceName,
+  serviceType,
+  serviceUrl,
+  servicePrice
+) => {
   try {
     if (!["ar", "en"].includes(lang)) {
       lang = "en";
@@ -263,7 +271,13 @@ module.exports.sendInvoiceForCustomer = async (lang, email, name) => {
       emailBody: { title },
     } = mail.types.customerInvoice;
 
-    const html = title[lang](name);
+    const html = title[lang](
+      name,
+      serviceName,
+      serviceType,
+      serviceUrl,
+      servicePrice
+    );
 
     const message = mail.getMessage(lang, email, html, subject[lang]);
 
